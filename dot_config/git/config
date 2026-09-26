@@ -30,11 +30,12 @@
 	name = Daniel Kliewer
 	email = danielkliewer@gmail.com
 # Credential helper delegates to `gh auth`, which keeps the token in the
-# keyring, not on disk. Invoked via the mise-managed symlink dir so a gh
-# version bump does not invalidate this path.
+# keyring, not on disk. Invoked via the mise shim so a gh version bump does
+# not invalidate this path (the installs/ tree nests under a versioned dir,
+# so `latest/bin/gh` does NOT exist).
 [credential "https://github.com"]
 	helper =
-	helper = !~/.local/share/mise/installs/gh/latest/bin/gh auth git-credential
+	helper = !/home/daniel/.local/share/mise/shims/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !~/.local/share/mise/installs/gh/latest/bin/gh auth git-credential
+	helper = !/home/daniel/.local/share/mise/shims/gh auth git-credential
