@@ -39,3 +39,12 @@
 [credential "https://gist.github.com"]
 	helper =
 	helper = !/home/daniel/.local/share/mise/shims/gh auth git-credential
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --dark --paging=never
+[merge]
+	conflictstyle = zdiff3
+[delta]
+	navigate = true
+	line-numbers = true
