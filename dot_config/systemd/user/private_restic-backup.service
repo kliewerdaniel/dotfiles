@@ -12,6 +12,7 @@ EnvironmentFile=%h/.config/restic/config
 ExecStart=/bin/sh -c '/usr/bin/restic backup $HOME \
   --exclude=$HOME/models \
   --exclude=$HOME/.cache \
+  --exclude=$HOME/.restic-repo \
   --exclude=$HOME/.local/state/omarchy/toggles \
   --exclude="**/.Trash-*" \
   --exclude="**/trash/**" \
