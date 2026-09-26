@@ -1,21 +1,32 @@
 [Unit]
 Description=Back up /home/daniel with restic
 Documentation=man:restic(1)
-# No network dependency: the repo is local, so a failed network should not
-# block a backup.
+# The repo is local, so a network failure must not block a backup.
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-# Sourced config supplies RESTIC_REPOSITORY / RESTIC_PASSWORD_FILE.
 EnvironmentFile=%h/.config/restic/config
-ExecStart=/bin/sh -c '/usr/bin/restic backup $HOME \
-  --exclude=$HOME/models \
-  --exclude=$HOME/.cache \
-  --exclude=$HOME/.restic-repo \
-  --exclude=$HOME/.local/state/omarchy/toggles \
-  --exclude="**/.Trash-*" \
-  --exclude="**/trash/**" \
-  --tag home'
-# Coarse dedup/prune keeps the repo bounded without a long daily run.
-ExecStartPost=/bin/sh -c '/usr/bin/restic forget $RESTIC_FORGET_POLICY --prune'
+
+# Backup and retention run as ONE command, sequentially.
+#
+# These were separate ExecStart / ExecStartPost steps, and that was a real bug:
+# restic holds its repo lock until the backup process fully exits, so the
+# follow-up `forget --prune` immediately collided with the backup's own lock
+# ("repository is already locked by PID ..."), exited 11, and failed the whole
+# unit -- even though the snapshot itself had been saved. One shell with &&
+# guarantees ordering.
+ExecStart=/bin/sh -c 'set -e; \
+  /usr/bin/restic backup $HOME \
+    --exclude=$HOME/models \
+    --exclude=$HOME/.cache \
+    --exclude=$HOME/.restic-repo \
+    --exclude=$HOME/.local/state/omarchy/toggles \
+    --exclude="**/.Trash-*" \
+    --exclude="**/trash/**" \
+    --tag home && \
+  /usr/bin/restic forget $RESTIC_FORGET_POLICY --prune'
+
+# Clear a stale lock left behind if we were ever killed mid-run, so a lock
+# from a crashed backup cannot wedge every future one.
+ExecStartPre=-/usr/bin/restic unlock
