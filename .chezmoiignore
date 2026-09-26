@@ -39,5 +39,9 @@
 **/*~
 .DS_Store
 
+# Repo README documents the repo, not this machine — keep it in the source
+# dir but never deploy it to $HOME.
+README.md
+
 # Never commit a rendered/scratch dir
 .scratch/
