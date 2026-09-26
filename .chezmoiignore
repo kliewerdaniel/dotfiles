@@ -1,0 +1,43 @@
+# Never track these. chezmoi already only manages what was explicitly `add`ed,
+# but these guard against a future blanket `chezmoi add ~/.config`.
+
+# Credentials and tokens
+**/hosts.yml
+**/.git-credentials
+**/*.key
+**/*.pem
+**/id_rsa*
+**/id_ed25519*
+**/known_hosts
+**/auth.json
+**/config.yml.encrypted
+
+# gh CLI stores an oauth token in this file
+.config/gh/
+
+# Browser + app state: huge, machine-specific, and not configuration
+.config/chromium/
+.config/chromium-flags.conf
+.config/google-chrome*/
+.config/BraveSoftware/
+.config/microsoft-edge*/
+.config/dconf/
+.config/Code/
+.config/nautilus/
+.config/autostart/
+
+# nvim: lockfile is tracked on purpose, but never the plugin/runtime state
+.config/nvim/.lazy/
+.config/nvim/lazy/
+.config/nvim/.cache/
+
+# Editors / OS noise
+.config/ghostty/
+.config/alacritty/
+**/*.bak
+**/*.bak.*
+**/*~
+.DS_Store
+
+# Never commit a rendered/scratch dir
+.scratch/
