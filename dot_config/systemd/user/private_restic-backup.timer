@@ -1,0 +1,17 @@
+[Unit]
+Description=Run the restic backup of /home/daniel
+Documentation=man:restic(1)
+
+[Timer]
+# Nightly at 04:17 — off the hour on purpose, so this does not collide with
+# every other timer on the machine.
+OnCalendar=*-*-* 04:17:00
+# If the machine was off/asleep at 04:17, run once after it comes back.
+Persistent=true
+# Spread load: allow up to 30 min of jitter.
+RandomizedDelaySec=30m
+# A daily backup of a 3.6 GiB repo should never overlap the next one.
+AccuracySec=1m
+
+[Install]
+WantedBy=timers.target

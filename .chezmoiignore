@@ -15,6 +15,11 @@
 # gh CLI stores an oauth token in this file
 .config/gh/
 
+# restic repo password — NEVER track. No GPG key is set up on this machine, so
+# it cannot be an encrypted template. Regenerate on a new machine and re-init
+# the repo, or set up gpg + `chezmoi add --template` first.
+.config/restic/password
+
 # Browser + app state: huge, machine-specific, and not configuration
 .config/chromium/
 .config/chromium-flags.conf
@@ -42,6 +47,9 @@
 # Repo README documents the repo, not this machine — keep it in the source
 # dir but never deploy it to $HOME.
 README.md
+
+# restic README is documentation for the backup setup — same treatment.
+.config/restic/README.md
 
 # Never commit a rendered/scratch dir
 .scratch/

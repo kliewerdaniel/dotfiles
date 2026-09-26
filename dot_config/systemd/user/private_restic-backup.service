@@ -1,0 +1,20 @@
+[Unit]
+Description=Back up /home/daniel with restic
+Documentation=man:restic(1)
+# No network dependency: the repo is local, so a failed network should not
+# block a backup.
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+# Sourced config supplies RESTIC_REPOSITORY / RESTIC_PASSWORD_FILE.
+EnvironmentFile=%h/.config/restic/config
+ExecStart=/bin/sh -c '/usr/bin/restic backup $HOME \
+  --exclude=$HOME/models \
+  --exclude=$HOME/.cache \
+  --exclude=$HOME/.local/state/omarchy/toggles \
+  --exclude="**/.Trash-*" \
+  --exclude="**/trash/**" \
+  --tag home'
+# Coarse dedup/prune keeps the repo bounded without a long daily run.
+ExecStartPost=/bin/sh -c '/usr/bin/restic forget $RESTIC_FORGET_POLICY --prune'

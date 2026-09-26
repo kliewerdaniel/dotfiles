@@ -1,0 +1,32 @@
+# restic backup configuration for /home/daniel
+# Source: ~/.config/restic/
+# Repo:   /home/daniel/.restic-repo  (internal NVMe — protects against
+#         accidental deletion/ransomware, NOT against disk failure)
+#         See ~/.config/restic/README.md for moving it off-machine.
+
+RESTIC_REPOSITORY=/home/daniel/.restic-repo
+RESTIC_PASSWORD_FILE=/home/daniel/.config/restic/password
+
+# Keep all history; age out old snapshots to bound growth.
+# 14d 4  ... = daily for 4 days
+# 7d 4   ... = daily for 7 days (4 more)
+# 4w 8   ... = weekly for 4 weeks (8 snapshots)
+# 6m 12  ... = monthly for 6 months
+# 1y 3   ... = yearly for 3 years
+RESTIC_FORGET_POLICY="--keep-daily 4 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3"
+RESTIC_PRUNE_POLICY="--max-unused 0%"
+
+# Schedule via the systemd user timer.
+# Manual:  env $(grep -v '^#' ~/.config/restic/*.conf | xargs) \
+#         restic backup $HOME --tag home \
+#           --exclude=$HOME/models --exclude=$HOME/.cache \
+#           --exclude=$HOME/.restic-repo
+#         env $(grep -v '^#' ~/.config/restic/*.conf | xargs) restic check
+
+# --- What to back up -----------------------------------------------
+# Skip: ~/models            (11 GB of GGUF weights, redownloadable)
+# Skip: ~/.cache           (rebuildable)
+# Skip: ~/.restic-repo     (THE REPO ITSELF — including it is recursive bloat)
+# Skip: ~/.local/state/omarchy/toggles  (transient UI state)
+# Skip: trash dirs
+# Skip: system /var, /boot, /etc  (separate concern, see README)
