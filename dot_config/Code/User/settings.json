@@ -1,0 +1,40 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [88],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.venv": true,
+    "**/node_modules": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true,
+    "**/.ruff_cache": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/dist": true,
+    "**/build": true
+  },
+  "python.defaultInterpreterPath": "/home/daniel/.local/share/mise/shims/python3",
+  "pylance.enabled": false,
+  "basedpyright.analysis.diagnosticMode": "openFilesOnly",
+  "basedpyright.analysis.typeCheckingMode": "recommended",
+  "basedpyright.analysis.autoImportCompletions": true,
+  "eslint.workingDirectories": [
+    { "mode": "autoDetect" }
+  ],
+  "prettier.requireConfig": true,
+  "gitlens.defaultCodeLens.enabled": false,
+  "git.confirmSync": false,
+  "direnv.allow": ["."],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": ["*.github/workflows/*.yml"]
+  }
+}

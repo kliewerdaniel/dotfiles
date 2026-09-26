@@ -12,3 +12,24 @@ source "$OMARCHY_PATH/default/bash/rc"
 #
 # Make an alias for invoking commands you use constantly
 # alias p='python'
+
+# --- dev tooling (added by Hermes) ---
+# Tell uv to prefer the Python that mise has active, instead of picking its
+# own bundled default. Without this, `uv init` / `uv venv` silently create a
+# 3.13 venv even on a machine whose active Python is 3.14.
+if command -v mise >/dev/null 2>&1; then
+  MISE_PY="$(mise which python 2>/dev/null || true)"
+  if [[ -n "$MISE_PY" ]]; then
+    export UV_PYTHON="$MISE_PY"
+  fi
+fi
+# direnv: auto-load .envrc per directory
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook bash)"
+fi
+# atuin: searchable shell history. Requires bash-preexec to capture full
+# commands (multi-line pipelines, etc.), and it must be sourced BEFORE atuin.
+if [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && command -v atuin >/dev/null 2>&1; then
+  source /usr/share/bash-preexec/bash-preexec.sh
+  eval "$(atuin init bash)"
+fi

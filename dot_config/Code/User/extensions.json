@@ -1,0 +1,56 @@
+{
+  "recommendations": [
+    {
+      "id": "bjarne.hackerman-omarchy",
+      "displayName": "bjarne.hackerman-omarchy"
+    },
+    {
+      "id": "dbaeumer.vscode-eslint",
+      "displayName": "dbaeumer.vscode-eslint"
+    },
+    {
+      "id": "detachhead.basedpyright",
+      "displayName": "detachhead.basedpyright"
+    },
+    {
+      "id": "eamodio.gitlens",
+      "displayName": "eamodio.gitlens"
+    },
+    {
+      "id": "editorconfig.editorconfig",
+      "displayName": "editorconfig.editorconfig"
+    },
+    {
+      "id": "enkia.tokyo-night",
+      "displayName": "enkia.tokyo-night"
+    },
+    {
+      "id": "esbenp.prettier-vscode",
+      "displayName": "esbenp.prettier-vscode"
+    },
+    {
+      "id": "mkhl.direnv",
+      "displayName": "mkhl.direnv"
+    },
+    {
+      "id": "ms-python.debugpy",
+      "displayName": "ms-python.debugpy"
+    },
+    {
+      "id": "ms-python.python",
+      "displayName": "ms-python.python"
+    },
+    {
+      "id": "ms-python.vscode-pylance",
+      "displayName": "ms-python.vscode-pylance"
+    },
+    {
+      "id": "ms-python.vscode-python-envs",
+      "displayName": "ms-python.vscode-python-envs"
+    },
+    {
+      "id": "redhat.vscode-yaml",
+      "displayName": "redhat.vscode-yaml"
+    }
+  ]
+}
